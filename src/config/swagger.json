@@ -1,0 +1,182 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "EvacConnect API Documentation",
+    "version": "1.0.0",
+    "title": "EvacConnect API",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "ec2-52-64-253-171.ap-southeast-2.compute.amazonaws.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "users"
+    },
+    {
+      "name": "locations"
+    },
+    {
+      "name": "accounts"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Sign-up end point of a user's Sign-up page",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in" : "body",
+            "name" : "user",
+            "description" : "This is the JSON data to be send to API",
+            "required" : true,
+            "schema" : {
+              "properties" : {
+                "first_name" :
+                  { "type" : "string" },
+                "last_name" :
+                  { "type" : "string" },
+                "email" :
+                  { "type" : "string" },
+                "password" :
+                  { "type" : "string" },
+                "confirm_password" :
+                  { "type" : "string" },
+                "role_id" :
+                  { "type" : "number", "value" : 0 }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request successful",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseStructure"
+            }
+          },
+          "400": {
+            "description": "Bad request, there's an invalid field or email existance",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseStructure"
+            }
+          }
+        }
+      }
+    },
+    "/authenticate": {
+      "post":{
+        "summary": "Authenticate user by username/email and password credentials",
+        "tags": [
+          "users"
+        ],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "Authentication needs username/email and password",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "username": {
+                "type": "string",
+                "description": "Enter username/email of user"
+              },
+              "password": {
+                "type": "string",
+                "description": "User password"
+              },
+              "keepSignedIn": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "username",
+              "password"
+            ]
+          }
+        }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "User Authenticated",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseStructure"
+            }
+          }
+        }
+      }
+    },
+    "/users":{
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Fetch latest users",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in" : "query",
+            "name" : "start",
+            "type" : "number",
+            "value" : 0
+          },
+          {
+            "in" : "query",
+            "name" : "end",
+            "type" : "number",
+            "value" : 25
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request successful",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseStructure"
+            }
+          },
+          "400": {
+            "description": "Bad request, there's an invalid field or email existance",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseStructure"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ApiResponseStructure": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

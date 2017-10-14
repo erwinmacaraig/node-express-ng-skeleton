@@ -1,8 +1,22 @@
-# NodeExpressNgAll
+# Node Express Angular Basic Skeleton Setup
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2.
+The Node.js is generated using express generator hence, 
+express <project-name> --hbs
+
+There is a corresponding package and functionaly with Swagger UI
 
 ## Development server
+
+First run, 
+`ng build` for building the the Angular Front End 
+
+Second,
+compile the Node.js Typescript using
+`npm run grunt`
+
+Finally run,
+`npm start` to start the whole application
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
