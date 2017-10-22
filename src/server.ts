@@ -8,6 +8,7 @@ import * as http from 'http';
 import * as url from 'url';
 
 import { IndexRoute } from './routes/index';
+import { UploadRoute } from './routes/upload-files';
 import * as cors from 'cors';
 
 import * as swaggerUi from 'swagger-ui-express';
@@ -69,15 +70,15 @@ export class Server {
       this.app.use(logger('dev'));
 
       // use json form parser middlware
-      this.app.use(bodyParser.json());
+      // this.app.use(bodyParser.json());
 
       // use query string parser middlware
-      this.app.use(bodyParser.urlencoded({
+      /* this.app.use(bodyParser.urlencoded({
         extended: true
       }));
-
+      */
       this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-      
+
       // cors
       this.app.use(cors());
   }
@@ -95,6 +96,9 @@ export class Server {
 
       // IndexRoute
       IndexRoute.create(router);
+
+      // Sample Upload
+      UploadRoute.create(router);
 
       this.app.use('/api/v1', router);
 
