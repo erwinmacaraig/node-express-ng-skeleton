@@ -23,11 +23,11 @@ export class UploadRoute extends BaseRoute {
   }
   public uploadFile(req: Request, res: Response, next: NextFunction) {
     // AWS.config = new AWS.Config();
-    AWS.config.accessKeyId = '';
+    AWS.config.accessKeyId = 'AKIAJ32HVQMQ654J56IA';
     AWS.config.secretAccessKey = '';
     const s3 = new AWS.S3({region: 'us-west-1'});
     const myBucket = 'mister-m-codes-2018';
-    const myKey = 'jiaDZn1dwyNnOwTiNOYO/eO5dSjdvGRbftiZkahy';
+    const myKey = ''
 
     const storageConfig = multer.diskStorage({
       destination: (req, file, callback) => {
@@ -59,6 +59,9 @@ export class UploadRoute extends BaseRoute {
 console.log(req['file']);
 const filename = req['file']['originalname'];
 
+const options = {
+  link: ''
+};
 fs.readFile(req['file']['path'], (err, data) => {
   if (err) {
       console.log('error reading file from path ', req['file']['path']);
@@ -74,14 +77,19 @@ fs.readFile(req['file']['path'], (err, data) => {
         return console.log('Error uploading the file at method putObject', err);
       }
       console.log('File Uploaded to S3');
+      s3.getSignedUrl('getObject', {Bucket: myBucket, Key: filename}, (err, url) => {
+        options.link = url;
+         // res.end('File is uploaded' + filename);
+         console.log(url);
+        return this.render(req, res, 'confirm-upload.hbs', options);
+      });
+
     });
   }
-
-
 });
 
 
-      res.end('File is uploaded' + filename);
+
     });
   } // end uploadFile
 
