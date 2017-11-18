@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
+
 import 'rxjs/Rx';
 
 import { RecipeService } from '../recipes/recipe.service';
@@ -16,17 +17,15 @@ export class DataStorageService {
 
   storeRecipes() {
     const token = this.authService.getToken();
-
     return this.http.put('https://ng-recipe-book-fad15.firebaseio.com/recipes.json?auth=' + token, this.recipeService.getRecipes());
   }
 
   getRecipes() {
     const token = this.authService.getToken();
-
     this.http.get<Recipe[]>('https://ng-recipe-book-fad15.firebaseio.com/recipes.json?auth=' + token)
       .map(
         (recipes) => {
-          for (let recipe of recipes) {
+          for (const recipe of recipes) {
             if (!recipe['ingredients']) {
               recipe['ingredients'] = [];
             }
