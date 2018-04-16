@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "@ngrx/core": "^1.2.0",
     "@ngrx/store": "github:ngrx/store",
     "body-parser": "~1.17.1",
     "bootstrap": "^3.3.7",
