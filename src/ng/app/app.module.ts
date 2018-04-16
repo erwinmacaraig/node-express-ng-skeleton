@@ -5,9 +5,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { ShoppingListReducer } from './shopping-list/store/shopping-list.reducers';
 
-import { AuthModule } from './auth/auth.module'
-
+import { AuthModule } from './auth/auth.module';
+import { StoreModule } from '@ngrx/store';
 import { CoreModule } from './core/core.module';
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CoreModule } from './core/core.module';
     SharedModule,
     ShoppingListModule,
     AuthModule,
-    CoreModule
+    CoreModule,
+    StoreModule.provideStore({shoppingList: ShoppingListReducer})
   ],
   bootstrap: [AppComponent]
 })
