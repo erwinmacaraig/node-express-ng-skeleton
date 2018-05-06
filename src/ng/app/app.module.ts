@@ -11,6 +11,9 @@ import { AuthModule } from './auth/auth.module';
 import { StoreModule } from '@ngrx/store';
 import { CoreModule } from './core/core.module';
 
+import { reducers } from './store/app.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './auth/store/auth.effects';
 @NgModule({
   declarations: [
     AppComponent
@@ -23,7 +26,10 @@ import { CoreModule } from './core/core.module';
     ShoppingListModule,
     AuthModule,
     CoreModule,
-    StoreModule.provideStore({shoppingList: ShoppingListReducer})
+    // StoreModule.provideStore({shoppingList: ShoppingListReducer})
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([AuthEffects])
+
   ],
   bootstrap: [AppComponent]
 })
